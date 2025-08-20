@@ -28,6 +28,11 @@ class ActivityView(discord.ui.View):
         event["not_going"].add(user_id)
         await self.update_embed(interaction)
 
+    @discord.ui.button(label="🛑 Завершить", style=discord.ButtonStyle.blurple)
+    async def finish_button(self, button, interaction: discord.Interaction):
+        self.clear_items()
+        await self.update_embed(interaction)
+
     async def update_embed(self, interaction: discord.Interaction):
         event = active_events[self.message_id]
         guild = interaction.guild
@@ -47,3 +52,4 @@ class ActivityView(discord.ui.View):
 
         await safe_edit_message(interaction=interaction, embed=embed, view=self)
         await interaction.response.defer()
+
